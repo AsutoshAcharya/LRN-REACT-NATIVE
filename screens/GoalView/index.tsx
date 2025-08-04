@@ -52,8 +52,13 @@ const GoalView = () => {
                 Keyboard.dismiss();
                 setOpen(false);
               }}
+              color="#934eecff"
             />
-            <Button title="Cancel" color="red" onPress={() => setOpen(false)} />
+            <Button
+              title="Cancel"
+              color="#f31282"
+              onPress={() => setOpen(false)}
+            />
           </View>
         </View>
       </Modal>
