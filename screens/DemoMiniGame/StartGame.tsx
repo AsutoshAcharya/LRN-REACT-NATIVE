@@ -12,8 +12,12 @@ const StartGame = () => {
         autoCapitalize="none"
         autoCorrect={false}
       />
-      <PrimaryButton>Reset</PrimaryButton>
-      <PrimaryButton>Confirm</PrimaryButton>
+      <View style={styles.buttonContainer}>
+        <PrimaryButton viewProps={{ style: { width: "50%" } }}>
+          Reset
+        </PrimaryButton>
+        <PrimaryButton>Confirm</PrimaryButton>
+      </View>
     </View>
   );
 };
@@ -50,5 +54,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    gap: 8,
+    justifyContent: "space-between",
   },
 });

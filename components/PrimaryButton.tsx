@@ -7,6 +7,8 @@ import {
   Pressable,
   PressableProps,
   StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 
 interface Props {
@@ -22,25 +24,32 @@ const PrimaryButton: FC<Props> = ({
   textProps,
   pressableProps,
 }) => {
+  const { style: viewStyle, ...restViewProps } = viewProps || {};
+  const { style: textStyle, ...restTextProps } = textProps || {};
+  const { style: pressableStyle, ...restPressableProps } = pressableProps || {};
+
   return (
-    <View style={styles.buttonOuterContainer} {...viewProps}>
+    <View style={[styles.buttonOuterContainer, viewStyle]} {...restViewProps}>
       <Pressable
-        android_ripple={{
-          color: "#ddd",
-        }}
+        android_ripple={{ color: "#ddd" }}
         style={({ pressed }) =>
-          pressed
-            ? [styles.pressed, styles.buttonInnerContainer]
-            : styles.buttonInnerContainer
+          [
+            styles.buttonInnerContainer,
+            pressed ? styles.pressed : null,
+            pressableStyle,
+          ].filter(Boolean) as StyleProp<ViewStyle>
         }
-        {...pressableProps}
+        {...restPressableProps}
       >
-        <Text children={children} style={styles.buttonText} {...textProps} />
+        <Text
+          children={children}
+          style={[styles.buttonText, textStyle]}
+          {...restTextProps}
+        />
       </Pressable>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   buttonOuterContainer: {
     borderRadius: 28,
