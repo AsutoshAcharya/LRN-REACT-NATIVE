@@ -1,12 +1,13 @@
 import { Fragment } from "react";
-import GoalView from "./screens/GoalView";
 import { StatusBar } from "expo-status-bar";
+import DemoMiniGame from "./screens/DemoMiniGame";
 
 export default function App() {
   return (
     <Fragment>
       <StatusBar style="light" />
-      <GoalView />
+      {/* <GoalView /> */}
+      <DemoMiniGame />
     </Fragment>
   );
 }
