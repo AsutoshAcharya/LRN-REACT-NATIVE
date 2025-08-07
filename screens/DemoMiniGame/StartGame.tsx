@@ -16,7 +16,9 @@ const StartGame = () => {
         <PrimaryButton viewProps={{ style: { width: "50%" } }}>
           Reset
         </PrimaryButton>
-        <PrimaryButton>Confirm</PrimaryButton>
+        <PrimaryButton viewProps={{ style: { width: "50%" } }}>
+          Confirm
+        </PrimaryButton>
       </View>
     </View>
   );
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
     borderRadius: 8,
     padding: 16,
-    backgroundColor: "#52032aff",
+    backgroundColor: "#3b021f",
     //for androind boxShadow elevation
     elevation: 8,
     //below are for ios boxShadow
