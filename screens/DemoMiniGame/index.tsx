@@ -1,7 +1,8 @@
 import React from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
 import StartGame from "./StartGame";
 import { LinearGradient } from "expo-linear-gradient";
+import GameScreen from "./GameScreen";
 
 const DemoMiniGame = () => {
   return (
@@ -15,7 +16,10 @@ const DemoMiniGame = () => {
         style={styles.rootScreen}
         imageStyle={styles.imageBackground}
       >
-        <StartGame />
+        <SafeAreaView style={styles.rootScreen}>
+          {/* <StartGame /> */}
+          <GameScreen />
+        </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
