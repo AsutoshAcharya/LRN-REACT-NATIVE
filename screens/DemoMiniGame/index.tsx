@@ -1,12 +1,22 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet } from "react-native";
 import StartGame from "./StartGame";
 import { LinearGradient } from "expo-linear-gradient";
 
 const DemoMiniGame = () => {
   return (
-    <LinearGradient colors={["#52032aff", "#ddb52f"]} style={styles.rootScreen}>
-      <StartGame />
+    <LinearGradient
+      colors={["#50042bff", "#10dd5fff"]}
+      style={styles.rootScreen}
+    >
+      <ImageBackground
+        source={require("../../assets/background.png")}
+        resizeMode="cover"
+        style={styles.rootScreen}
+        imageStyle={styles.imageBackground}
+      >
+        <StartGame />
+      </ImageBackground>
     </LinearGradient>
   );
 };
@@ -17,4 +27,5 @@ const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
   },
+  imageBackground: { opacity: 0.15 },
 });
