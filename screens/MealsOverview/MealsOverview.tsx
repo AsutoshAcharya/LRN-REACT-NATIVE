@@ -1,8 +1,17 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
 
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { FC, useMemo } from "react";
+import {
+  FlatList,
+  Image,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { RootStackParamList } from "../../RoutesMap";
+import { MEALS, MealType } from "../../data/dummyData";
 
 type MealsOverviewRouteProp = RouteProp<RootStackParamList, "MealsOverview">;
 
@@ -10,9 +19,42 @@ const MealsOverview = () => {
   const route = useRoute<MealsOverviewRouteProp>();
   const { categoryId } = route.params;
   console.log(categoryId);
+  const displayedMeals = useMemo(
+    () => MEALS.filter((meal) => meal.categoryIds.indexOf(categoryId) >= 0),
+    [categoryId]
+  );
   return (
     <View style={styles.container}>
-      <Text>MealsOverview screen</Text>
+      <FlatList
+        data={displayedMeals}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <RenderMealItem item={item} />}
+      />
+    </View>
+  );
+};
+
+interface Props {
+  item: MealType;
+}
+
+const RenderMealItem: FC<Props> = ({ item }) => {
+  return (
+    <View style={styles.mealItem}>
+      <Pressable
+        android_ripple={{ color: "#ccc" }}
+        style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+      >
+        <View>
+          <Image source={{ uri: item.imageUrl }} style={styles.image} />
+          <Text style={styles.title}>{item.title}</Text>
+        </View>
+        <View style={styles.details}>
+          <Text>{item.duration}m</Text>
+          <Text>{item.complexity.toUpperCase()}</Text>
+          <Text>{item.affordability.toUpperCase()}</Text>
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -23,5 +65,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+  },
+  mealItem: {
+    margin: 16,
+    borderRadius: 8,
+
+    elevation: 4,
+    backgroundColor: "white",
+    shadowColor: "black",
+    shadowOpacity: 0.25,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 8,
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
+  },
+  buttonPressed: {
+    opacity: 0.8,
+  },
+  image: {
+    width: "100%",
+    height: 200,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 18,
+    textAlign: "center",
+    margin: 8,
+  },
+  details: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: 8,
   },
 });
