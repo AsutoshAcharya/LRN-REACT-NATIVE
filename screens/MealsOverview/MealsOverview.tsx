@@ -10,11 +10,12 @@ import {
   Text,
   View,
 } from "react-native";
-import { RootStackParamList } from "../../RoutesMap";
+import { RootStackParamList, RouteTitle } from "../../RoutesMap";
 import { CATEGORIES, MEALS, MealType } from "../../data/dummyData";
 
 type MealsOverviewRouteProp = RouteProp<RootStackParamList, "MealsOverview">;
 type MealsNavigationProp = NavigationProp<RootStackParamList, "MealsOverview">;
+
 const MealsOverview = ({ navigation }: { navigation: MealsNavigationProp }) => {
   const route = useRoute<MealsOverviewRouteProp>();
   const { categoryId } = route.params;
@@ -36,7 +37,9 @@ const MealsOverview = ({ navigation }: { navigation: MealsNavigationProp }) => {
       <FlatList
         data={displayedMeals}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <RenderMealItem item={item} />}
+        renderItem={({ item }) => (
+          <RenderMealItem item={item} navigation={navigation} />
+        )}
       />
     </View>
   );
@@ -44,14 +47,18 @@ const MealsOverview = ({ navigation }: { navigation: MealsNavigationProp }) => {
 
 interface Props {
   item: MealType;
+  navigation: any;
 }
 
-const RenderMealItem: FC<Props> = ({ item }) => {
+const RenderMealItem: FC<Props> = ({ item, navigation }) => {
   return (
     <View style={styles.mealItem}>
       <Pressable
         android_ripple={{ color: "#ccc" }}
         style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
+        onPress={() => {
+          navigation.navigate(RouteTitle.MealDetails, { mealId: item.id });
+        }}
       >
         <View>
           <Image source={{ uri: item.imageUrl }} style={styles.image} />
