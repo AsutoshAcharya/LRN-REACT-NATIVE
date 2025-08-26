@@ -1,6 +1,6 @@
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useRoute, NavigationProp } from "@react-navigation/native";
 
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo, useLayoutEffect } from "react";
 import {
   FlatList,
   Image,
@@ -11,14 +11,22 @@ import {
   View,
 } from "react-native";
 import { RootStackParamList } from "../../RoutesMap";
-import { MEALS, MealType } from "../../data/dummyData";
+import { CATEGORIES, MEALS, MealType } from "../../data/dummyData";
 
 type MealsOverviewRouteProp = RouteProp<RootStackParamList, "MealsOverview">;
-
-const MealsOverview = () => {
+type MealsNavigationProp = NavigationProp<RootStackParamList, "MealsOverview">;
+const MealsOverview = ({ navigation }: { navigation: MealsNavigationProp }) => {
   const route = useRoute<MealsOverviewRouteProp>();
   const { categoryId } = route.params;
   console.log(categoryId);
+
+  useLayoutEffect(() => {
+    const categoryTitle = CATEGORIES.find((c) => c.id === categoryId)?.title;
+    navigation.setOptions({
+      title: categoryTitle,
+    });
+  }, [categoryId]);
+
   const displayedMeals = useMemo(
     () => MEALS.filter((meal) => meal.categoryIds.indexOf(categoryId) >= 0),
     [categoryId]

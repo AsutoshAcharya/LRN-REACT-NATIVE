@@ -3,8 +3,8 @@ import CategoryScreen from "./screens/CategoriesScreen/CategoryScreen";
 import MealsOverview from "./screens/MealsOverview/MealsOverview";
 
 export enum RouteTitle {
-  MealsCategory = "MealsCategory",
-  MealsOverview = "MealsOverview",
+  MealsCategory = "Meals Category",
+  MealsOverview = "Meals Overview",
 }
 
 export type RootStackParamList = {

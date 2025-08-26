@@ -12,7 +12,18 @@ export default function App() {
     <Fragment>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: "#082b25ff",
+            },
+            headerTintColor: "#FFF",
+            headerTitleAlign: "center",
+            contentStyle: {
+              backgroundColor: "#18993fff",
+            },
+          }}
+        >
           {routesMap.map((route) => (
             <Stack.Screen
               name={route.title}
