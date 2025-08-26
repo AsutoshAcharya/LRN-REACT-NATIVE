@@ -33,8 +33,9 @@ const RenderItem = ({
 }) => {
   function onPress() {
     console.log("onPress");
-    navigation.navigate(RouteTitle.MealsOverview);
+    navigation.navigate(RouteTitle.MealsOverview, { categoryId: item.id });
   }
+
   return (
     <View style={styles.gridItem}>
       <Pressable

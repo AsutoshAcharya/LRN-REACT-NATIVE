@@ -7,6 +7,11 @@ export enum RouteTitle {
   MealsOverview = "MealsOverview",
 }
 
+export type RootStackParamList = {
+  MealsCategory: undefined;
+  MealsOverview: { categoryId: string };
+};
+
 export type Route = {
   title: RouteTitle;
   component: React.ComponentType<any>;
