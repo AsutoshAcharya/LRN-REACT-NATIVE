@@ -9,18 +9,32 @@ import {
 } from "react-native";
 import { CATEGORIES, Category } from "../../data/dummyData";
 
-const CategoryScreen = () => {
+import { RouteTitle } from "../../RoutesMap";
+
+const CategoryScreen = ({ navigation }: { navigation: any }) => {
   return (
     <FlatList
       data={CATEGORIES}
       keyExtractor={(item) => item.id}
-      renderItem={(item) => <RenderItem item={item.item} />}
+      renderItem={(item) => (
+        <RenderItem item={item.item} navigation={navigation} />
+      )}
       numColumns={2}
     />
   );
 };
 
-const RenderItem = ({ item }: { item: Category }) => {
+const RenderItem = ({
+  item,
+  navigation,
+}: {
+  item: Category;
+  navigation: any;
+}) => {
+  function onPress() {
+    console.log("onPress");
+    navigation.navigate(RouteTitle.MealsOverview);
+  }
   return (
     <View style={styles.gridItem}>
       <Pressable
@@ -29,6 +43,7 @@ const RenderItem = ({ item }: { item: Category }) => {
           styles.buttonStyle,
           pressed ? styles.buttonPressed : null,
         ]}
+        onPress={onPress}
       >
         <View style={[styles.innerContainer, { backgroundColor: item.color }]}>
           <Text style={styles.title}>{item.title}</Text>

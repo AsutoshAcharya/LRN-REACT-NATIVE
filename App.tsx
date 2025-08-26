@@ -3,8 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-import CategoryScreen from "./screens/CategoriesScreen/CategoryScreen";
+import { routesMap } from "./RoutesMap";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +13,13 @@ export default function App() {
       <StatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Categories" component={CategoryScreen} />
+          {routesMap.map((route) => (
+            <Stack.Screen
+              name={route.title}
+              component={route.component}
+              key={route.title}
+            />
+          ))}
         </Stack.Navigator>
       </NavigationContainer>
     </Fragment>
