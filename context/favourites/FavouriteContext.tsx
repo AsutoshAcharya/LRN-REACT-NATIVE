@@ -39,4 +39,4 @@ const FavouriteContextProvider = ({ children }: Props) => {
 
 export default FavouriteContextProvider;
 
-export const useFavouriteContext = useContext(FavouriteContext);
+export const useFavouriteContext = () => useContext(FavouriteContext);

@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { routesMap } from "./RoutesMap";
-import FavouriteContextProvider from "./context/favourites/FavouriteContextProvider";
+import FavouriteContextProvider from "./context/favourites/FavouriteContext";
 
 const Stack = createNativeStackNavigator();
 

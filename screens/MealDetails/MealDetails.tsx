@@ -9,8 +9,9 @@ import {
   View,
 } from "react-native";
 import { RootStackParamList } from "../../RoutesMap";
-import { MEALS } from "../../data/dummyData";
+import { MEALS, MealType } from "../../data/dummyData";
 import IconButton from "../../components/IconButton";
+import { useFavouriteContext } from "../../context/favourites/FavouriteContext";
 
 type MealDetailsRoute = RouteProp<RootStackParamList, "MealDetails">;
 type MealDetailsNavigation = NavigationProp<RootStackParamList, "MealDetails">;
@@ -20,13 +21,28 @@ const MealDetails = ({ navigation }: { navigation: MealDetailsNavigation }) => {
     params: { mealId },
   } = useRoute<MealDetailsRoute>();
 
+  const { manager, dispatch } = useFavouriteContext();
+  console.log(manager);
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  const isFavourite = manager.favourites.some((m) => m.id === mealId);
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <IconButton onPress={() => console.log("pressed")} />,
+      headerRight: () => (
+        <IconButton
+          onPress={() =>
+            isFavourite
+              ? dispatch({ type: "removeFavourite", payload: mealId })
+              : dispatch({
+                  type: "addFavourite",
+                  payload: selectedMeal as MealType,
+                })
+          }
+          icon={isFavourite ? "star" : "star-outline"}
+        />
+      ),
     });
-  }, [navigation]);
+  }, [navigation, isFavourite]);
 
   return (
     <ScrollView style={styles.rootContainer}>

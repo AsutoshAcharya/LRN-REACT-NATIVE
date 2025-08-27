@@ -7,8 +7,12 @@ import {
   ViewStyle,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-interface Props extends PressableProps {}
-const IconButton: FC<Props> = ({ style, ...rest }) => {
+type IoniconsName = React.ComponentProps<typeof Ionicons>["name"];
+
+interface Props extends PressableProps {
+  icon?: IoniconsName;
+}
+const IconButton: FC<Props> = ({ icon, style, ...rest }) => {
   return (
     <Pressable
       style={({ pressed }) =>
@@ -18,7 +22,7 @@ const IconButton: FC<Props> = ({ style, ...rest }) => {
       }
       {...rest}
     >
-      <Ionicons name="star" size={24} color="white" />
+      <Ionicons name={icon} size={24} color="white" />
     </Pressable>
   );
 };

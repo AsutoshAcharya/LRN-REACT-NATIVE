@@ -1,5 +1,5 @@
 import { MealType } from "../../data/dummyData";
-import { FavouriteManager } from "./FavouriteContextProvider";
+import { FavouriteManager } from "./FavouriteContext";
 
 export type FavouriteManagerAction =
   | {
@@ -19,7 +19,7 @@ function favouriteReducer(
     case "addFavourite":
       return {
         ...manager,
-        favourites: { ...manager.favourites, ...action.payload },
+        favourites: [...manager.favourites, action.payload],
       };
     case "removeFavourite":
       return {
