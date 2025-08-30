@@ -12,6 +12,14 @@
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain"
     },
+     "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "The app need access to your camera"
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true
     },
